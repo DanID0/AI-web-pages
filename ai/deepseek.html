@@ -16,6 +16,37 @@
             overflow-x: hidden;
         }
 
+        /* Эффект загрузки */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 2s ease-in-out forwards;
+        }
+
+        #loader img {
+            width: 200px;
+            animation: flyIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes flyIn {
+            0% { transform: translateY(-100vh); }
+            50% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
         /* Шапка */
         header {
             background-color: #111;
@@ -243,6 +274,24 @@
             color: #f5f5f5;
         }
 
+        /* Дополнительный контент */
+        #more-content {
+            padding: 100px 20px;
+            text-align: center;
+            background-color: #1a1a1a;
+        }
+
+        #more-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #more-content p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         /* Подвал */
         footer {
             background-color: #000;
@@ -285,8 +334,13 @@
     </style>
 </head>
 <body>
+    <!-- Эффект загрузки -->
+    <div id="loader">
+        <img src="https://i.imgur.com/3QZQZ.png" alt="Fight Club Logo">
+    </div>
+
     <header>
-        <img  src="img/ddd.jpg" alt="Логотип Бойцовского клуба">
+        <img src="https://i.imgur.com/3QZQZ.png" alt="Логотип Бойцовского клуба">
         <nav>
             <ul>
                 <li><a href="#home">Главная</a></li>
@@ -314,13 +368,13 @@
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item">
-                    <img src="img/ddd.jpg" alt="Кадр из фильма 1">
+                    <img src="https://i.imgur.com/3QZQZ.jpg" alt="Кадр из фильма 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/ddd.jpg" alt="Кадр из фильма 2">
+                    <img src="https://i.imgur.com/4R4R4.jpg" alt="Кадр из фильма 2">
                 </div>
                 <div class="carousel-item">
-                    <img  src="img/ddd.jpg" alt="Кадр из фильма 3">
+                    <img src="https://i.imgur.com/5S5S5.jpg" alt="Кадр из фильма 3">
                 </div>
             </div>
             <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
@@ -344,12 +398,28 @@
         </blockquote>
     </section>
 
+    <!-- Дополнительный контент -->
+    <section id="more-content">
+        <h2>Дополнительная информация</h2>
+        <p>
+            Фильм "Бойцовский клуб" стал культовым благодаря своему уникальному стилю, глубокому сюжету и запоминающимся персонажам. 
+            Он поднимает важные темы, такие как потребительство, идентичность и свобода. Фильм получил множество наград и до сих пор остается актуальным.
+        </p>
+    </section>
+
     <footer id="contact">
         <p>© 2023 Бойцовский клуб. Все права защищены.</p>
         <p>Свяжитесь с нами: <a href="mailto:info@fightclub.com">info@fightclub.com</a></p>
     </footer>
 
     <script>
+        // Эффект загрузки
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 2000);
+        });
+
         // Исправленный генератор фактов
         const facts = [
             "Фильм был снят за 138 дней.",
@@ -391,6 +461,7 @@
         // Анимация при прокрутке
         const aboutSection = document.getElementById('about');
         const quotesSection = document.getElementById('quotes');
+        const moreContentSection = document.getElementById('more-content');
 
         window.addEventListener('scroll', () => {
             if (isElementInViewport(aboutSection)) {
@@ -398,6 +469,9 @@
             }
             if (isElementInViewport(quotesSection)) {
                 quotesSection.classList.add('visible');
+            }
+            if (isElementInViewport(moreContentSection)) {
+                moreContentSection.classList.add('visible');
             }
         });
 
