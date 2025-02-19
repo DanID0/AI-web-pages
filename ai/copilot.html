@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Бойцовский клуб</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Подключение стилей Slick Carousel -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+    <style>
+        /* Стили для загрузочного экрана */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #loading-screen img {
+            width: 200px;
+            animation: soapAnimation 2s ease-in-out forwards;
+        }
+        @keyframes soapAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+        }
+
+        /* Остальные стили */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #1a1a1a;
+            color: #e6e6e6;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        header {
+            background-color: #111;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 1s ease-in-out;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ff0066;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 15px;
+        }
+        nav ul li a {
+            color: #ff0066;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ff3399;
+        }
+        .hero {
+            background-image: url('generated_image_hero.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 150px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hero h2 {
+            font-size: 48px;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .custom-section {
+            padding: 30px;
+            background-color: #222;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            animation: slideIn 1s ease-in-out;
+        }
+        .custom-section h3 {
+            margin-top: 0;
+            color: #ff0066;
+        }
+        .custom-section img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .custom-section img:hover {
+            transform: scale(1.05);
+        }
+        .quote {
+            font-style: italic;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .cat-fact {
+            margin: 20px;
+        }
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .slick-prev:before, .slick-next:before {
+            color: #ff0066;
+        }
+        .slick-dots li.slick-active button:before {
+            color: #ff0066;
+        }
+        footer {
+            background-color: #111;
+            color: #ff0066;
+            padding: 20px 40px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        button {
+            background-color: #ff0066;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff3399;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div id="loading-screen">
+        <img src="img/ddd.jpg">
+    </div>
+
+    <!-- Основное содержимое страницы -->
+    <header>
+        <h1>Бойцовский клуб</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О фильме</a></li>
+                <li><a href="#">Галерея</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <h2>Добро пожаловать в Бойцовский клуб</h2>
+    </section>
+    <section class="custom-section">
+        <h3>О фильме</h3>
+        <p>«Бойцовский клуб» — культовый фильм 1999 года, снятый режиссёром Дэвидом Финчером по одноимённому роману Чака Паланика. Главные роли исполнили Брэд Питт, Эдвард Нортон и Хелена Бонэм Картер. Фильм исследует темы потребительства, самоидентификации и противоречий современного общества.</p>
+        <img src="generated_image_description.jpg" alt="Описание фильма">
+    </section>
+    <!-- Новые секции с дополнительным контентом -->
+    <section class="custom-section">
+        <h3>За кулисами</h3>
+        <p>Фильм «Бойцовский клуб» известен своими уникальными режиссёрскими решениями и глубокими философскими темами. Режиссёр Дэвид Финчер использовал различные техники для создания напряжённой атмосферы и передачи внутреннего состояния персонажей.</p>
+        <img src="behind_scenes.jpg" alt="За кадром">
+    </section>
+    <section class="custom-section">
+        <h3>Знаменитые цитаты</h3>
+        <p class="quote">"Первое правило Бойцовского клуба: никому не рассказывать о Бойцовском клубе."</p>
+        <p class="quote">"Мы покупаем вещи, которые нам не нужны, за деньги, которых у нас нет, чтобы впечатлить людей, которым нет до нас дела."</p>
+    </section>
+    <section class="custom-section">
+        <h3>Интересные факты</h3>
+        <ul>
+            <li>В фильме есть скрытые кадры с появлением Тайлера Дёрдена до его официального знакомства с рассказчиком.</li>
+            <li>Актёры действительно посещали занятия по боксу, тхэквондо и изготовлению мыла, чтобы лучше вжиться в роли.</li>
+            <li>Фильм изначально не получил признания в прокате, но со временем стал культовым.</li>
+        </ul>
+    </section>
+    <!-- Карусель изображений -->
+    <section class="custom-section">
+        <h3>Галерея</h3>
+        <div class="carousel">
+            <div><img src="generated_image1.jpg" alt="Сцена боя 1"></div>
+            <div><img src="generated_image2.jpg" alt="Сцена боя 2"></div>
+            <div><img src="generated_image3.jpg" alt="Сцена боя 3"></div>
+        </div>
+    </section>
+    <section class="custom-section">
+        <h3>Персонажи</h3>
+        <ul>
+            <li><strong>Тайлер Дёрден</strong> (Брэд Питт) – харизматичный создатель Бойцовского клуба.</li>
+            <li><strong>Безымянный рассказчик</strong> (Эдвард Нортон) – мужчина, ищущий смысл жизни в бессмысленном мире.</li>
+            <li><strong>Марла Сингер</strong> (Хелена Бонэм Картер) – загадочная женщина, которая переворачивает жизнь главного героя.</li>
+        </ul>
+        <img src="generated_image_characters.jpg" alt="Персонажи фильма">
+    </section>
+    <section class="custom-section">
+        <h3>Интерактивный раздел</h3>
+        <button onclick="fetchCatFact()">Узнать интересный факт о котах</button>
+        <p class="cat-fact"></p>
+    </section>
+    <footer>
+        <p>&copy; 2025 Фан-сайт фильма «Бойцовский клуб»</p>
+    </footer>
+
+    <!-- Подключение библиотек JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Подключение скриптов Slick Carousel -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script>
+        // Функция для скрытия загрузочного экрана после загрузки страницы
+        window.onload = function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 2000); // Время должно соответствовать длительности анимации
+        };
+
+        $(document).ready(function(){
+            $('.carousel').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true,
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            });
+        });
+
+        function fetchCatFact() {
+            fetch('https://catfact.ninja/fact')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.cat-fact').textContent = data.fact;
+                });
+        }
+    </script>
+</body>
+</html>

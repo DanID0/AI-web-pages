@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бойцовский клуб</title>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            text-align: center; 
+            background-color: #0d0d0d; 
+            color: #f5f5f5; 
+            margin: 0; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 15px; 
+            background: #800000; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        nav a { 
+            margin: 0 15px; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff4d4d;
+        }
+        .hero { 
+            padding: 100px 20px; 
+            background: url('https://upload.wikimedia.org/wikipedia/en/8/8a/Fight_Club_title_card.jpg') no-repeat center; 
+            background-size: cover; 
+            color: white; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            animation: fadeIn 2s ease-in-out;
+        }
+        .section { 
+            padding: 40px 20px; 
+            max-width: 800px; 
+            margin: auto;
+            border-bottom: 2px solid #800000;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .section img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 10px; 
+            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+        .section img:hover {
+            transform: scale(1.1);
+        }
+        #cat-fact { 
+            margin-top: 20px; 
+            font-style: italic; 
+        }
+        footer { 
+            padding: 20px; 
+            background: #800000; 
+            font-size: 14px;
+            animation: fadeIn 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Бойцовский клуб</h1>
+        <nav>
+            <a href="#hero">Главная</a>
+            <a href="#about">О фильме</a>
+            <a href="#features">Цитаты</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </header>
+    
+    <section id="hero" class="hero">
+        <h2>Первое правило бойцовского клуба...</h2>
+    </section>
+    
+    <section id="about" class="section">
+        <h2>О фильме</h2>
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg" alt="Fight Club Poster">
+        <p>«Бойцовский клуб» — культовый фильм 1999 года, снятый Дэвидом Финчером по роману Чака Паланика. В главных ролях Брэд Питт, Эдвард Нортон и Хелена Бонэм Картер. Фильм исследует темы потребительства, идентичности и нигилизма.</p>
+    </section>
+    
+    <section id="features" class="section">
+        <h2>Знаковые цитаты</h2>
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/11/Tyler_Durden.jpg" alt="Tyler Durden">
+        <p>«Ты не твоя работа. Ты не количество денег в твоем банке. Ты не машина, которую водишь. Ты не содержимое своего кошелька.»</p>
+        <p>«Первое правило бойцовского клуба: никому не рассказывать о бойцовском клубе.»</p>
+        <p>«Мы — средние дети истории, ребята. Нас не учили бороться в жизни, но и мир нам не оставили.»</p>
+    </section>
+    
+    <section id="cat-fact-section" class="section">
+        <h2>Факт о котах</h2>
+        <img src="https://source.unsplash.com/800x400/?cat" alt="Cat">
+        <p id="cat-fact">Загрузка...</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Бойцовский клуб | Вдохновленный фильмом Дэвида Финчера</p>
+    </footer>
+    
+    <script>
+        async function fetchCatFact() {
+            try {
+                let response = await fetch('https://catfact.ninja/fact');
+                let data = await response.json();
+                document.getElementById('cat-fact').innerText = data.fact;
+            } catch (error) {
+                document.getElementById('cat-fact').innerText = 'Не удалось загрузить факт.';
+            }
+        }
+        fetchCatFact();
+    </script>
+</body>
+</html>
