@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fight Club Fan Site</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            box-sizing: border-box;
+        }
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .soap-bar {
+            width: 200px;
+            height: auto;
+            animation: flyAndFall 3s ease-out forwards;
+        }
+        @keyframes flyAndFall {
+            0% {
+                transform: translate(-1000px, -1000px) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(0, 0) rotate(360deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, 1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        header {
+            background-color: #000;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid #ff0000;
+            box-shadow: 0 2px 15px rgba(255, 0, 0, 0.6);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 1s ease-in;
+        }
+        .logo {
+            max-width: 300px;
+            height: auto;
+            filter: grayscale(30%) brightness(120%);
+            animation: pulse 3s infinite ease-in-out;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 30px;
+        }
+        nav ul li a {
+            color: #ff3333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #fff;
+            text-shadow: 0 0 15px #ff0000;
+            transform: scale(1.1);
+        }
+        .section {
+            padding: 150px 50px; /* Increased padding for longer sections */
+            text-align: center;
+            min-height: 120vh; /* Increased height for a longer page */
+            background: linear-gradient(to bottom, #1a1a1a, #2d2d2d);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero, .carousel, .plot, .characters, .quotes, .behind-the-scenes, .fan-theories, .merchandise, .fight-simulator, .fact-section {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideUp 1s ease-out forwards;
+        }
+        .hero { animation-delay: 0.2s; }
+        .carousel { animation-delay: 0.4s; }
+        .plot { animation-delay: 0.6s; }
+        .characters { animation-delay: 0.8s; }
+        .quotes { animation-delay: 1.0s; }
+        .behind-the-scenes { animation-delay: 1.2s; }
+        .fan-theories { animation-delay: 1.4s; }
+        .merchandise { animation-delay: 1.6s; }
+        .fight-simulator { animation-delay: 1.8s; }
+        .fact-section { animation-delay: 2.0s; }
+        .hero {
+            background-image: url('fight-club-background.jpg'); /* Replace with actual image URL */
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            position: relative;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            color: #ff0000;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            text-shadow: 3px 3px 8px #000;
+            animation: flicker 2s infinite alternate;
+        }
+        button {
+            padding: 20px 40px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+        button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px #ff0000;
+            background-color: #cc0000;
+        }
+        .plot, .characters, .quotes, .behind-the-scenes, .fan-theories, .merchandise {
+            background: linear-gradient(to bottom, #2d2d2d, #1a1a1a);
+            border-top: 2px solid #ff3333;
+            border-bottom: 2px solid #ff3333;
+        }
+        .plot h2, .characters h2, .quotes h2, .behind-the-scenes h2, .fan-theories h2, .merchandise h2 {
+            color: #ff0000;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px #000;
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+        .character-grid, .quote-grid, .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            padding: 20px;
+        }
+        .character-card, .quote-card, .merch-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border: 2px solid #ff3333;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .character-card:hover, .quote-card:hover, .merch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px #ff0000;
+        }
+        .fight-simulator, .fact-section {
+            background: linear-gradient(to bottom, #2d2d2d, #1a1a1a);
+            border-top: 2px solid #ff3333;
+            border-bottom: 2px solid #ff3333;
+        }
+        #punch-result, #fact-display {
+            font-style: italic;
+            color: #ccc;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        footer {
+            background-color: #000;
+            padding: 30px;
+            text-align: center;
+            border-top: 5px solid #ff0000;
+            position: relative;
+            width: 100%;
+            animation: slideUp 1s ease-out;
+        }
+        footer a {
+            color: #ff3333;
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        footer a:hover {
+            color: #fff;
+            text-shadow: 0 0 15px #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* Carousel Styles */
+        .carousel {
+            padding: 150px 50px;
+            text-align: center;
+            background: linear-gradient(to bottom, #2d2d2d, #1a1a1a);
+            border-top: 2px solid #ff3333;
+            border-bottom: 2px solid #ff3333;
+        }
+        .carousel h2 {
+            color: #ff0000;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px #000;
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+        .carousel-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border: 2px solid #ff3333;
+            border-radius: 10px;
+            filter: grayscale(30%) brightness(120%);
+            transition: filter 0.3s ease;
+        }
+        .carousel-slide img:hover {
+            filter: grayscale(0%) brightness(150%);
+            box-shadow: 0 0 20px #ff0000;
+        }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .carousel-nav button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .carousel-nav button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff0000;
+        }
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-15px); }
+            50% { transform: translateX(15px); }
+            75% { transform: translateX(-15px); }
+            100% { transform: translateX(0); }
+        }
+        body.shake { animation: shake 0.5s; }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <img src="fight-club-soap.png" alt="Fight Club Soap" class="soap-bar">
+    </div>
+
+    <header>
+        <img src="fight-club-logo.png" alt="Fight Club Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#plot">Plot</a></li>
+                <li><a href="#characters">Characters</a></li>
+                <li><a href="#quotes">Quotes</a></li>
+                <li><a href="#behind">Behind-the-Scenes</a></li>
+                <li><a href="#theories">Fan Theories</a></li>
+                <li><a href="#merch">Merchandise</a></li>
+                <li><a href="#fight">Fight Simulator</a></li>
+                <li><a href="#facts">Facts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero section">
+        <h1>Welcome to Fight Club – The First Rule Is: You Do Not Talk About Fight Club</h1>
+        <button onclick="exploreChaos()">Enter the Chaos</button>
+    </section>
+
+    <section class="carousel section">
+        <h2>Fight Club Gallery</h2>
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="fight-club-slide1.jpg" alt="Fight Club Scene 1">
+                <img src="fight-club-slide2.jpg" alt="Fight Club Scene 2">
+                <img src="fight-club-slide3.jpg" alt="Fight Club Scene 3">
+                <img src="fight-club-slide4.jpg" alt="Fight Club Scene 4">
+            </div>
+            <div class="carousel-nav">
+                <button onclick="prevSlide()"><</button>
+                <button onclick="nextSlide()">></button>
+            </div>
+            <div class="carousel-dots"></div>
+        </div>
+    </section>
+
+    <section class="plot section">
+        <h2>Plot Summary</h2>
+        <div class="content">
+            <p>*Fight Club*, directed by David Fincher and released in 1999, follows an insomniac office worker (Edward Norton) who forms an underground fight club with soap salesman Tyler Durden (Brad Pitt). The club evolves into Project Mayhem, a chaotic movement against consumerism, but the Narrator discovers a shocking twist: Tyler is a figment of his imagination. The film explores themes of masculinity, identity, and rebellion, culminating in a dramatic explosion of credit card company buildings.</p>
+            <p>Based on Chuck Palahniuk’s 1996 novel, *Fight Club* became a cult classic despite its initial box office struggles, praised for its dark humor, philosophical depth, and iconic performances. The story delves into the Narrator’s descent into madness, driven by his alter ego, Tyler, who represents his suppressed desires for freedom and destruction.</p>
+            <p>The film’s narrative structure, with its unreliable narrator and shocking twist, has inspired countless discussions and analyses, cementing its status as a cultural phenomenon.</p>
+        </div>
+    </section>
+
+    <section class="characters section">
+        <h2>Key Characters</h2>
+        <div class="character-grid">
+            <div class="character-card">
+                <h3>The Narrator (Edward Norton)</h3>
+                <p>An insomniac office worker struggling with identity and consumerism, unknowingly creating Tyler Durden as his alter ego. His journey from conformity to chaos drives the film’s central conflict.</p>
+            </div>
+            <div class="character-card">
+                <h3>Tyler Durden (Brad Pitt)</h3>
+                <p>A charismatic, anarchic soap salesman who embodies rebellion and chaos, leading the fight club and Project Mayhem. Tyler’s philosophy challenges societal norms, but his extremism tests the Narrator’s sanity.</p>
+            </div>
+            <div class="character-card">
+                <h3>Marla Singer (Helena Bonham Carter)</h3>
+                <p>A chain-smoking, nihilistic woman who becomes the Narrator’s love interest and complicates his relationship with Tyler. Her unpredictable nature adds tension to the story.</p>
+            </div>
+            <div class="character-card">
+                <h3>Robert "Bob" Paulson (Meat Loaf)</h3>
+                <p>A former bodybuilder and member of Project Mayhem, whose tragic death becomes a pivotal moment, immortalized by the chant, “His name is Robert Paulson.”</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="quotes section">
+        <h2>Iconic Quotes</h2>
+        <div class="quote-grid">
+            <div class="quote-card">
+                <p>“The first rule of Fight Club is: You do not talk about Fight Club.”</p>
+            </div>
+            <div class="quote-card">
+                <p>“You are not special. You are not a beautiful or unique snowflake.”</p>
+            </div>
+            <div class="quote-card">
+                <p>“Self-improvement is masturbation. Self-destruction is the answer.”</p>
+            </div>
+            <div class="quote-card">
+                <p>“I want you to hit me as hard as you can.”</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="behind-the-scenes section">
+        <h2>Behind-the-Scenes</h2>
+        <div class="content">
+            <p>*Fight Club*’s production was as chaotic as its story. Director David Fincher faced studio pressure due to the film’s dark themes and unconventional narrative. The basement fight scenes were filmed in a real, grungy location to capture authenticity, with actors like Brad Pitt and Edward Norton enduring physical strain for realism.</p>
+            <p>Brad Pitt chipped his tooth and grew facial hair to embody Tyler Durden’s rugged look, while Helena Bonham Carter’s makeup was deliberately applied messily to reflect Marla Singer’s chaotic persona. The film’s twist ending was kept secret, even from some crew members, to preserve its impact.</p>
+            <p>The iconic soap-making scenes used real animal fat, adding to the film’s gritty realism. Despite initial box office disappointment, *Fight Club*’s DVD release and word-of-mouth turned it into a cult classic, praised for Fincher’s direction and the actors’ performances.</p>
+        </div>
+    </section>
+
+    <section class="fan-theories section">
+        <h2>Fan Theories</h2>
+        <div class="content">
+            <p>Fans have developed numerous theories about *Fight Club*. One popular theory suggests Marla Singer might also be a figment of the Narrator’s imagination, given her mysterious background and the film’s unreliable narration. Another theory posits that Tyler Durden’s existence hints at dissociative identity disorder, aligning with the film’s psychological depth.</p>
+            <p>Some fans believe the credit card company explosion at the end symbolizes a complete rejection of consumerism, while others argue it’s the Narrator’s final act of self-destruction before finding peace. These theories continue to fuel discussions on forums and social media, reinforcing *Fight Club*’s cult status.</p>
+        </div>
+    </section>
+
+    <section class="merchandise section">
+        <h2>Merchandise</h2>
+        <div class="merch-grid">
+            <div class="merch-card">
+                <h3>Fight Club T-Shirt</h3>
+                <p>Featuring Tyler Durden’s iconic quote, “The first rule of Fight Club…” Available in black with red lettering.</p>
+            </div>
+            <div class="merch-card">
+                <h3>Soap Bar Replica</h3>
+                <p>A collectible soap bar inspired by Tyler’s soap-making, packaged with *Fight Club* branding.</p>
+            </div>
+            <div class="merch-card">
+                <h3>Poster Print</h3>
+                <p>A high-quality print of the original *Fight Club* movie poster, perfect for fans.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="fight-simulator section">
+        <h2>Fight Simulator</h2>
+        <p>Click to simulate a punch and feel the chaos of Fight Club!</p>
+        <button onclick="simulatePunch()">Throw a Punch</button>
+        <p id="punch-result"></p>
+    </section>
+
+    <section class="fact-section section">
+        <h2>Did You Know?</h2>
+        <p>Discover fascinating facts about *Fight Club*!</p>
+        <button onclick="generateFact()">Generate a Fact</button>
+        <p id="fact-display"></p>
+    </section>
+
+    <footer>
+        <p>© 2025 Fight Club Fan Site. All rights reserved.</p>
+        <a href="#contact">Contact Us</a> | <a href="#about">About Fight Club</a> | <a href="#privacy">Privacy Policy</a>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => loader.classList.add('hidden'), 3000); // Hide after 3 seconds
+        });
+
+        // Explore Chaos Function
+        function exploreChaos() {
+            alert("You’ve entered the world of Fight Club – proceed with caution!");
+            document.body.classList.add('shake');
+            setTimeout(() => document.body.classList.remove('shake'), 500);
+        }
+
+        // Fight Simulator Function
+        function simulatePunch() {
+            const punches = ["Left Hook – Pow!", "Right Jab – Boom!", "Uppercut – Crash!", "Body Blow – Thud!", "Knockout – Boom!"];
+            const randomPunch = punches[Math.floor(Math.random() * punches.length)];
+            document.getElementById("punch-result").innerText = randomPunch;
+            document.body.classList.add('shake');
+            setTimeout(() => document.body.classList.remove('shake'), 500);
+            const audio = new Audio('punch-sound.mp3'); // Optional: Add a punch sound file (royalty-free from Freesound.org or Zapsplat.com)
+            audio.play();
+        }
+
+        // Fact Generator Function
+        const fightClubFacts = [
+            "The role of Tyler Durden was originally offered to Russell Crowe before Brad Pitt was cast.",
+            "Edward Norton actually punched Brad Pitt in the ear during the first fight scene, and the genuine reaction made it into the final film.",
+            "Fight Club premiered at the Venice Film Festival on September 10, 1999, and received mixed reactions, with some audiences booing.",
+            "The movie’s budget was $63 million, but it only earned $100.9 million at the box office, initially disappointing the studio.",
+            "David Fincher based the film’s themes on Generation X’s conflict with consumerism and advertising, drawing parallels to *Rebel Without a Cause* and *The Graduate*.",
+            "Brad Pitt chipped his tooth for the role of Tyler Durden to enhance his rugged appearance.",
+            "Helena Bonham Carter had her makeup artist apply her makeup with the wrong hand to give Marla Singer a messy, authentic look.",
+            "The buildings that explode at the end of the film are digitally composited Fox-owned buildings to avoid legal issues with real credit card companies.",
+            "Rosie O’Donnell spoiled the movie’s twist ending on her talk show the week it was released, angering Brad Pitt and Edward Norton.",
+            "Fight Club later became a cult classic after its DVD release, selling over a million copies and being dubbed the 'defining cult movie of our time' by *The New York Times* in 2009."
+        ];
+
+        function generateFact() {
+            const randomFact = fightClubFacts[Math.floor(Math.random() * fightClubFacts.length)];
+            document.getElementById("fact-display").innerText = randomFact;
+            document.getElementById("fact-display").classList.add('fadeIn');
+            setTimeout(() => document.getElementById("fact-display").classList.remove('fadeIn'), 1000);
+        }
+
+        // Intersection Observer for animations (scroll-triggered)
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        });
+
+        // Carousel Functionality
+        let slideIndex = 0;
+        const slides = document.querySelector('.carousel-slide');
+        const dotsContainer = document.querySelector('.carousel-dots');
+
+        // Create dots
+        for (let i = 0; i < 4; i++) { // Assuming 4 slides
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+
+        function nextSlide() {
+            slideIndex = (slideIndex + 1) % 4; // Assuming 4 slides
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+            updateDots();
+        }
+
+        function prevSlide() {
+            slideIndex = (slideIndex - 1 + 4) % 4; // Assuming 4 slides
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+            updateDots();
+        }
+
+        function goToSlide(index) {
+            slideIndex = index;
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+            updateDots();
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Initial setup
+        updateDots();
+    </script>
+</body>
+</html>
