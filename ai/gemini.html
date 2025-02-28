@@ -1,1 +1,357 @@
-<!--Лайтбокс-галерея  Эффекты наведения  Эффект частиц  Hamburger Menu with Animation -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Бойцовский клуб</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #222;
+      color: #ccc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #f00;
+    }
+
+    .hero {
+      background-image: url('https://i.ibb.co/LdQZgT8/fight-club-hero.jpg');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 150px 0;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      animation: heroAnimation 10s ease-in-out infinite;
+    }
+
+    @keyframes heroAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #join-button {
+      background-color: #f00;
+      color: #fff;
+      padding: 15px 30px;
+      border: 2px solid #f00;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    #join-button:hover {
+      background-color: transparent;
+      border-color: #fff;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .user-section {
+      text-align: center;
+      padding: 50px 0;
+      background-color: #333;
+    }
+
+    #name-input {
+      padding: 12px;
+      margin-right: 10px;
+      font-size: 1em;
+      border: 1px solid #555;
+      background-color: #444;
+      color: #ccc;
+    }
+
+    #generate-rule-button {
+      background-color: #00f;
+      color: #fff;
+      padding: 12px 25px;
+      border: 2px solid #00f;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    #generate-rule-button:hover {
+      background-color: transparent;
+      border-color: #fff;
+    }
+
+    .cat-fact {
+      text-align: center;
+      padding: 50px 0;
+      background-color: #2a2a2a;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #111;
+    }
+    .carousel-container {
+      width: 80%;
+      margin: 20px auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-slide {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .carousel-nav button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 2s ease-in-out forwards 3s;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+
+    #loading-soap {
+      width: 150px;
+      height: 100px;
+      background-image: url('soap.png'); /* Замените на изображение мыла */
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: relative;
+      animation: soapDrop 2s ease-in-out forwards;
+    }
+
+    @keyframes soapDrop {
+      0% { top: -100px; }
+      100% { top: 100vh; }
+    }
+
+    #loading-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* ... (добавьте стили для дополнительного контента) ... */
+    .additional-content {
+      padding: 50px;
+      background-color: #333;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div id="loading-soap"></div>
+        <div id="loading-text">Fighting Club</div>
+      </div>
+    
+      <header>
+        <div class="logo">
+          <img src="https://i.ibb.co/WzJc66T/fight-club-logo.png" alt="Логотип Бойцовского клуба">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Первое правило</a></li>
+            <li><a href="#">Цитаты</a></li>
+            <li><a href="#">Проект «Разгром»</a></li>
+          </ul>
+        </nav>
+      </header>
+    
+      <section class="hero">
+        <h1>Бойцовский клуб</h1>
+        <p>Первое правило Бойцовского клуба — никому не рассказывать о Бойцовском клубе.</p>
+        <button id="join-button">Присоединиться к клубу</button>
+      </section>
+    
+      <section class="user-section">
+        <input type="text" id="name-input" placeholder="Введите ваше имя">
+        <button id="generate-rule-button">Сгенерировать правило</button>
+        <p id="rule-output"></p>
+      </section>
+    
+      <section class="cat-fact">
+        <h2>Случайный факт о кошке:</h2>
+        <p id="cat-fact-text">Загрузка...</p>
+      </section>
+    
+      <div class="carousel-container">
+        <div class="carousel-slide">
+          <img src="https://i.ibb.co/LdQZgT8/fight-club-hero.jpg" alt="Изображение 1">
+          <img src="https://i.ibb.co/WzJc66T/fight-club-logo.png" alt="Изображение 2">
+          <img src="https://i.ibb.co/LdQZgT8/fight-club-hero.jpg" alt="Изображение 3">
+        </div>
+        <div class="carousel-nav">
+          <button id="carousel-prev">Назад</button>
+          <button id="carousel-next">Вперед</button>
+        </div>
+      </div>
+    
+      <section class="additional-content">
+        <h2>Дополнительный контент</h2>
+        <p>Добавьте сюда больше информации о фильме, персонажах или темах, которые вы хотите обсудить.</p>
+      </section>
+    
+      <footer>
+        <p>© 2023 Бойцовский клуб. Все права защищены.</p>
+      </footer>
+
+  <script>
+    const nameInput = document.getElementById('name-input');
+    const generateRuleButton = document.getElementById('generate-rule-button');
+    const ruleOutput = document.getElementById('rule-output');
+    const catFactText = document.getElementById('cat-fact-text');
+
+    generateRuleButton.addEventListener('click', () => {
+      const name = nameInput.value;
+      const rules = [
+        'Никому не рассказывать о Бойцовском клубе.',
+        'Не задавать вопросов в Бойцовском клубе.',
+        'Бой продолжается до тех пор, пока один из бойцов не скажет «стоп» или не потеряет сознание.',
+        'В клубе дерутся только двое.',
+        'Бои идут один за другим.',
+        'Если кто-то впервые пришёл в клуб, он обязан драться.'
+      ];
+      const randomRule = rules[Math.floor(Math.random() * rules.length)];
+      ruleOutput.textContent = `${name}, ваше правило Бойцовского клуба: ${randomRule}`;
+    });
+
+    // Исправленный генератор фактов
+    async function fetchCatFact() {
+      try {
+        const response = await fetch('https://catfact.ninja/fact');
+        const data = await response.json();
+        catFactText.textContent = data.fact;
+      } catch (error) {
+        catFactText.textContent = 'Не удалось загрузить факт о кошке.';
+      }
+    }
+
+    fetchCatFact();
+    const carouselSlide = document.querySelector('.carousel-slide');
+    const carouselImages = document.querySelectorAll('.carousel-slide img');
+    const prevButton = document.querySelector('#carousel-prev');
+    const nextButton = document.querySelector('#carousel-next');
+
+    let counter = 0;
+    const size = carouselImages[0].clientWidth;
+
+    carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+
+    nextButton.addEventListener('click', () => {
+      if (counter >= carouselImages.length - 1) return;
+      carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+      counter++;
+      carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    });
+
+    prevButton.addEventListener('click', () => {
+      if (counter <= 0) return;
+      carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+      counter--;
+      carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    });
+
+    carouselSlide.addEventListener('transitionend', () => {
+      if (carouselImages[counter].id === 'lastClone') {
+        carouselSlide.style.transition = 'none';
+        counter = carouselImages.length - 2;
+        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+      }
+      if (carouselImages[counter].id === 'firstClone') {
+        carouselSlide.style.transition = 'none';
+        counter = carouselImages.length - counter;
+        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+      }
+    });
+  </script>
+</body>
+</html>
